@@ -6,15 +6,20 @@ MAINTAINER perfSONAR <perfsonar-user@perfsonar.net>
 RUN yum -y install \
     # epel-release repo
     epel-release \
-    # perfSONAR release repo
-    http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.8-1.noarch.rpm && \
+    # perfSONAR repo
+    http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.8-1.noarch.rpm \
+    http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-staging-0.8-1.noarch.rpm && \
     # reload the cache for the new repos
     yum clean expire-cache && \
-    yum -y install perfSONAR-repo-staging && \
-    yum clean expire-cache && \
-    # install testpoint bundle and required tools for docker image
+    # install tools bundle and update required tools for docker image
     yum -y install \
     perfsonar-tools \
+    supervisor \
+    net-tools \
+    sysstat \
+    tcpdump && \
+    # setup supervisor logs
+    mkdir -p /var/log/supervisor && \
     # clean up
     yum clean all && \
     rm -rf /var/cache/yum/*
