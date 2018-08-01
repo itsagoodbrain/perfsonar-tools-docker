@@ -18,8 +18,6 @@ RUN yum -y install \
     net-tools \
     sysstat \
     tcpdump && \
-    # setup supervisor logs
-    mkdir -p /var/log/supervisor && \
     # clean up
     yum clean all && \
     rm -rf /var/cache/yum/*
